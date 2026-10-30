@@ -7,7 +7,7 @@
     </ol>
   </nav>
 
-  <h2 class="mb-2">Publicar nuevo recurso</h2>
+  <h2 class="mb-2">{{ esEdicion ? 'Editar recurso' : 'Publicar nuevo recurso' }}</h2>
   <p class="text-muted mb-4">Comparte tus guías, apuntes o enlaces para ayudar a tus compañeros universitarios en Huancayo.</p>
 
   <!-- Caja de información -->
@@ -106,8 +106,8 @@
     <!-- Botones de acción -->
     <div class="d-flex gap-2 mb-5">
       <button type="submit" class="btn btn-primary px-4" [disabled]="formularioRecurso.invalid">
-        <i class="bi bi-upload"></i> Publicar recurso
-      </button>
+  <i class="bi bi-upload"></i> {{ esEdicion ? 'Guardar cambios' : 'Publicar recurso' }}
+</button>
       <button type="button" class="btn btn-outline-secondary" (click)="limpiar()">
         Cancelar
       </button>

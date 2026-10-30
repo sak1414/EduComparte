@@ -1,7 +1,7 @@
 import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router'; // Para el breadcrumb
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Recurso } from '../../interfaces/recurso';
 import { RecursoService } from '../../services/recurso.service';
 import Swal from 'sweetalert2';
@@ -15,22 +15,19 @@ import Swal from 'sweetalert2';
 })
 export class RecursoFormularioComponent {
   
-  // 1. MODELO Signal (Requisito del docente: usar Signals para el estado)
   private recursoModelo = signal<Recurso>({
-    titulo: '',
-    universidad: '',
-    asignatura: '',
-    categoria: '',
-    descripcion: '',
-    url: '',
-    autor: ''
+    titulo: '', universidad: '', asignatura: '', categoria: '', descripcion: '', url: '', autor: ''
   });
 
-  // 2. FORMULARIO Reactivo (Compatible con Angular 22 y validaciones estrictas)
   formularioRecurso: FormGroup;
   listaRecursos: Recurso[] = [];
-
+  
   private recursoService = inject(RecursoService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
+  recursoId: number | null = null;
+  esEdicion = false;
 
   constructor() {
     this.formularioRecurso = new FormGroup({
@@ -42,45 +39,57 @@ export class RecursoFormularioComponent {
       url: new FormControl('', [Validators.required, Validators.pattern('https?://.+')]),
       autor: new FormControl('', [Validators.required])
     });
+
     this.mostrar();
+
+    // Detectar si estamos en modo edición
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.recursoId = Number(params['id']);
+        this.esEdicion = true;
+        this.cargarDatosParaEditar();
+      }
+    });
+  }
+
+  cargarDatosParaEditar(): void {
+    const recurso = this.recursoService.obtenerRecursos().find(r => r.id === this.recursoId);
+    if (recurso) {
+      this.formularioRecurso.patchValue(recurso);
+      this.recursoModelo.set(recurso);
+    }
   }
 
   guardar(): void {
     if (this.formularioRecurso.valid) {
-      // Sincronizamos el Signal con los valores del formulario
-      this.recursoModelo.set({
-        ...this.formularioRecurso.value,
-        id: Date.now()
-      });
+      const datosFormulario = this.formularioRecurso.value;
 
-      // Enviamos al servicio
-      this.recursoService.guardarRecurso(this.recursoModelo());
-      
-      Swal.fire({
-        title: '¡Recurso Publicado!',
-        text: 'Tu aporte ayudará a muchos estudiantes de Huancayo.',
-        icon: 'success',
-        confirmButtonColor: '#0d6efd'
-      });
+      if (this.esEdicion && this.recursoId) {
+        // MODO EDITAR
+        this.recursoService.actualizarRecurso(this.recursoId, datosFormulario);
+        Swal.fire({ title: '¡Actualizado!', text: 'El recurso se modificó correctamente.', icon: 'success', confirmButtonColor: '#0d6efd' });
+      } else {
+        // MODO CREAR
+        const nuevoRecurso: Recurso = {
+          ...datosFormulario,
+          id: Date.now(),
+          fecha: 'Justo ahora',
+          tipo: 'PDF'
+        };
+        this.recursoService.guardarRecurso(nuevoRecurso);
+        Swal.fire({ title: '¡Publicado!', text: 'Tu aporte ayudará a muchos estudiantes.', icon: 'success', confirmButtonColor: '#0d6efd' });
+      }
 
-      this.limpiar();
-      this.mostrar();
+      this.router.navigate(['/explorar']); // Redirigir a la lista
     } else {
       this.formularioRecurso.markAllAsTouched();
-      Swal.fire({
-        title: 'Campos incompletos',
-        text: 'Por favor revisa los campos marcados en rojo.',
-        icon: 'warning',
-        confirmButtonColor: '#0d6efd'
-      });
+      Swal.fire({ title: 'Campos incompletos', text: 'Revisa los campos marcados en rojo.', icon: 'warning', confirmButtonColor: '#0d6efd' });
     }
   }
 
   limpiar(): void {
-    this.recursoModelo.set({
-      titulo: '', universidad: '', asignatura: '', categoria: '', descripcion: '', url: '', autor: ''
-    });
     this.formularioRecurso.reset();
+    this.router.navigate(['/home']);
   }
 
   mostrar(): void {
