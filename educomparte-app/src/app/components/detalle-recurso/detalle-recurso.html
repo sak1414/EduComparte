@@ -1,0 +1,142 @@
+
+<div class="container mt-4">
+  
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
+      <li class="breadcrumb-item"><a routerLink="/explorar">Recursos</a></li>
+      <li class="breadcrumb-item active">Detalle</li>
+    </ol>
+  </nav>
+
+  @if (recursoSeleccionado(); as recurso) {
+    
+    <!-- Encabezado del recurso -->
+    <div class="mb-4">
+      <div class="d-flex gap-2 mb-2">
+        <span class="badge bg-primary">{{ recurso.categoria }}</span>
+        <span class="badge bg-success"><i class="bi bi-patch-check"></i> Verificado por Moderador</span>
+      </div>
+      <h1 class="fw-bold">{{ recurso.titulo }}</h1>
+    </div>
+
+    <div class="row">
+      
+      <!-- COLUMNA IZQUIERDA: Contenido principal -->
+      <div class="col-md-8">
+        
+        <!-- Información del autor -->
+        <div class="card mb-4 border-0 shadow-sm">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" 
+                     style="width: 60px; height: 60px; font-size: 1.5rem;">
+                  {{ recurso.autor.charAt(0) }}
+                </div>
+              </div>
+              <div class="col">
+                <h5 class="mb-1">{{ recurso.autor }}</h5>
+                <p class="text-muted mb-0 small">
+                  <i class="bi bi-building"></i> {{ recurso.universidad }} &nbsp;|&nbsp; 
+                  <i class="bi bi-book"></i> {{ recurso.asignatura }}
+                </p>
+              </div>
+              <div class="col-auto text-end">
+                <small class="text-muted">
+                  <i class="bi bi-clock"></i> {{ recurso.fecha }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vista previa del documento (simulada) -->
+        <div class="card mb-4 border-0 shadow-sm">
+          <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-file-earmark-pdf"></i> {{ recurso.titulo }}.pdf</span>
+            <small>Pág 1 de 32</small>
+          </div>
+          <div class="card-body bg-light text-center py-5">
+            <i class="bi bi-file-earmark-pdf text-danger" style="font-size: 5rem;"></i>
+            <p class="mt-3 text-muted">Vista previa del documento</p>
+            <small class="text-muted">Preparado por: {{ recurso.autor }}</small>
+          </div>
+        </div>
+
+        <!-- Descripción completa -->
+        <div class="card mb-4 border-0 shadow-sm">
+          <div class="card-header bg-white fw-bold">
+            <i class="bi bi-info-circle"></i> Descripción del contenido
+          </div>
+          <div class="card-body">
+            <p>{{ recurso.descripcion }}</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COLUMNA DERECHA: Panel de acciones -->
+      <div class="col-md-4">
+        
+        <!-- Panel de descarga -->
+        <div class="card border-0 shadow-sm mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="mb-0">Disponibilidad Inmediata</h6>
+              <span class="badge bg-success">100% Libre</span>
+            </div>
+            
+            <h4 class="fw-bold mb-3">Descarga Gratuita</h4>
+            
+            <button class="btn btn-primary w-100 mb-2" (click)="descargar()">
+              <i class="bi bi-download"></i> Descargar Material Completo
+            </button>
+            
+            <small class="text-muted d-block mb-3">
+              Formato {{ recurso.tipo }} • Servidor Huancayo CDN
+            </small>
+
+            <hr>
+
+            <button class="btn btn-outline-secondary w-100 mb-2">
+              <i class="bi bi-share"></i> Abrir en Google Drive / Compartir
+            </button>
+
+            <button class="btn btn-outline-secondary w-100" (click)="guardarParaDespues()">
+              <i class="bi bi-bookmark"></i> Guardar para estudiar después
+            </button>
+
+            <div class="alert alert-success mt-3 small mb-0">
+              <i class="bi bi-shield-check"></i> Documento analizado contra virus y aprobado para fines educativos.
+            </div>
+          </div>
+        </div>
+
+        <!-- Materiales relacionados -->
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-link-45deg"></i> Materiales Relacionados</span>
+            <a routerLink="/explorar" class="small text-decoration-none">Ver más</a>
+          </div>
+          <div class="card-body">
+            <p class="text-muted small mb-0">
+              Explora más recursos de {{ recurso.asignatura }} en la sección de explorar.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  } @else {
+    <!-- Estado de carga o error -->
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-3 text-muted">Cargando detalle del recurso...</p>
+    </div>
+  }
+</div>
