@@ -1,22 +1,119 @@
-<!-- Banner principal -->
-<div class="p-5 mb-4 bg-light rounded-3">
-  <div class="container-fluid py-3">
-    <h1 class="display-5 fw-bold">
-      <i class="bi bi-share-fill text-primary"></i> Comparte Conocimiento
-    </h1>
-    <p class="col-md-8 fs-5">
-      Plataforma gratuita para universitarios de Huancayo. Comparte y descarga recursos educativos: apuntes, guías, ejercicios y más.
+
+
+<!-- Hero Section -->
+<div class="bg-light py-5 mb-4 rounded-3">
+  <div class="container text-center">
+    <h1 class="display-4 fw-bold mb-3">Comparte conocimiento,<br>impulsa tu carrera</h1>
+    <p class="lead text-muted mb-4">
+      La comunidad académica universitaria de Huancayo donde compartir y descargar apuntes, 
+      exámenes pasados, guías y libros es 100% libre y colaborativo.
     </p>
+    
+    <!-- Barra de búsqueda -->
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="input-group input-group-lg">
+          <span class="input-group-text bg-white border-end-0">
+            <i class="bi bi-search"></i>
+          </span>
+          <input type="text" class="form-control border-start-0" placeholder="Busca por curso, docente, tema o universidad... ej: Cálculo III, Algoritmos">
+          <button class="btn btn-primary" type="button">
+            <i class="bi bi-search"></i> Buscar recursos
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Búsquedas rápidas -->
+    <div class="mt-3">
+      <small class="text-muted">BÚSQUEDAS RÁPIDAS:</small>
+      <span class="badge bg-secondary ms-2">#Cálculo</span>
+      <span class="badge bg-secondary ms-1">#EstructuraDeDatos</span>
+      <span class="badge bg-secondary ms-1">#Fisiología</span>
+      <span class="badge bg-secondary ms-1">#Termodinámica</span>
+      <span class="badge bg-secondary ms-1">#UNCP</span>
+    </div>
   </div>
 </div>
 
-<!-- Sección de publicar recurso -->
-<div class="row">
-  <div class="col-md-12">
-    <h3><i class="bi bi-plus-circle"></i> Publicar Nuevo Recurso</h3>
-    <p class="text-muted">Completa el formulario para compartir tu recurso con la comunidad</p>
-    
-    <!-- Aquí se carga el formulario de recursos -->
-    <app-recurso-formulario></app-recurso-formulario>
+<!-- Estadísticas -->
+<div class="row mb-5 g-4">
+  <div class="col-md-4">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body text-center">
+        <i class="bi bi-folder-fill text-primary" style="font-size: 2.5rem;"></i>
+        <h3 class="mt-2 mb-0">+4,500</h3>
+        <p class="text-muted mb-0">Recursos compartidos</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body text-center">
+        <i class="bi bi-people-fill text-info" style="font-size: 2.5rem;"></i>
+        <h3 class="mt-2 mb-0">+12,000</h3>
+        <p class="text-muted mb-0">Estudiantes en Huancayo</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body text-center">
+        <i class="bi bi-unlock-fill text-success" style="font-size: 2.5rem;"></i>
+        <h3 class="mt-2 mb-0">100% Libre</h3>
+        <p class="text-muted mb-0">Acceso solidario y gratuito</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Explora por Áreas Académicas -->
+<div class="mb-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <small class="text-primary fw-bold">MAPEO CURRICULAR</small>
+      <h2 class="mb-0">Explora por Áreas Académicas</h2>
+      <p class="text-muted mb-0">Encuentra material clasificado por las principales facultades e institutos</p>
+    </div>
+    <small class="text-muted">Actualizado continuamente por delegados</small>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-3 col-sm-6">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body text-center">
+          <i class="bi bi-calculator text-primary" style="font-size: 2rem;"></i>
+          <h5 class="mt-2 mb-1">Matemáticas & Ciencias Exactas</h5>
+          <p class="text-muted small mb-0">Cálculo, Álgebra, Estadística</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body text-center">
+          <i class="bi bi-code-slash text-success" style="font-size: 2rem;"></i>
+          <h5 class="mt-2 mb-1">Programación & Tecnología</h5>
+          <p class="text-muted small mb-0">Algoritmos, Bases de Datos, Web</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body text-center">
+          <i class="bi bi-heart-pulse text-danger" style="font-size: 2rem;"></i>
+          <h5 class="mt-2 mb-1">Ciencias de la Salud & Biológicas</h5>
+          <p class="text-muted small mb-0">Anatomía, Fisiología, Bioquímica</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body text-center">
+          <i class="bi bi-briefcase text-warning" style="font-size: 2rem;"></i>
+          <h5 class="mt-2 mb-1">Ciencias Administrativas & Derecho</h5>
+          <p class="text-muted small mb-0">Contabilidad, Marketing, Leyes</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

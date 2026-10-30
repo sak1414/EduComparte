@@ -1,11 +1,11 @@
-// src/app/components/home/home.ts
+
 import { Component } from '@angular/core';
-import { RecursoFormularioComponent } from '../recurso-formulario/recurso-formulario';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RecursoFormularioComponent],
+  imports: [CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })

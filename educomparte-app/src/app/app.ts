@@ -1,8 +1,8 @@
-// src/app/app.ts
+
 import { Component } from '@angular/core';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
-import { Login } from './components/login/login';
+import { Home } from './components/home/home';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ import { Login } from './components/login/login';
   imports: [
     Header,
     Footer,
-    Login
+    Home
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'
