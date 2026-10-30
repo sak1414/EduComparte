@@ -1,0 +1,79 @@
+<div class="container mt-4">
+  <h3 class="mb-3">📚 Publicar Recurso Educativo</h3>
+  
+  <form [formGroup]="formularioRecurso" (ngSubmit)="guardar()">
+    
+    <!-- Título -->
+    <div class="mb-3">
+      <label for="titulo" class="form-label">Título del recurso</label>
+      <input type="text" id="titulo" class="form-control" formControlName="titulo">
+      @if(formularioRecurso.get('titulo')?.invalid && formularioRecurso.get('titulo')?.touched){
+        <span class="text-danger small">El título es obligatorio (mín. 5 caracteres).</span>
+      }
+    </div>
+
+    <!-- Curso -->
+    <div class="mb-3">
+      <label for="curso" class="form-label">Curso / Asignatura</label>
+      <input type="text" id="curso" class="form-control" formControlName="curso">
+      @if(formularioRecurso.get('curso')?.invalid && formularioRecurso.get('curso')?.touched){
+        <span class="text-danger small">El curso es obligatorio.</span>
+      }
+    </div>
+
+    <!-- Descripción -->
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <textarea id="descripcion" class="form-control" rows="3" formControlName="descripcion"></textarea>
+    </div>
+
+    <!-- URL -->
+    <div class="mb-3">
+      <label for="url" class="form-label">Enlace (URL)</label>
+      <input type="url" id="url" class="form-control" formControlName="url">
+      @if(formularioRecurso.get('url')?.invalid && formularioRecurso.get('url')?.touched){
+        <span class="text-danger small">Ingresa una URL válida (http:// o https://).</span>
+      }
+    </div>
+
+    <!-- Autor -->
+    <div class="mb-3">
+      <label for="autor" class="form-label">Autor</label>
+      <input type="text" id="autor" class="form-control" formControlName="autor">
+    </div>
+
+    <!-- Botón -->
+    <button type="submit" class="btn btn-primary" [disabled]="formularioRecurso.invalid">
+      Publicar Recurso
+    </button>
+  </form>
+
+  <!-- Tabla -->
+  @if(listaRecursos.length > 0){
+    <div class="mt-5">
+      <h4 class="mb-3">📌 Recursos Publicados</h4>
+      <table class="table table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>Título</th>
+            <th>Curso</th>
+            <th>Autor</th>
+            <th>Enlace</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(r of listaRecursos; track $index){
+            <tr>
+              <td>{{ r.titulo }}</td>
+              <td>{{ r.curso }}</td>
+              <td>{{ r.autor }}</td>
+              <td>
+                <a [href]="r.url" target="_blank" class="btn btn-sm btn-outline-primary">Ver 🔗</a>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
