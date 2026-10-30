@@ -1,63 +1,130 @@
 <div class="container mt-4">
-  <h3 class="mb-3">📚 Publicar Recurso Educativo</h3>
-  
+  <!-- Encabezado -->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
+      <li class="breadcrumb-item active">Publicar Recurso</li>
+    </ol>
+  </nav>
+
+  <h2 class="mb-2">Publicar nuevo recurso</h2>
+  <p class="text-muted mb-4">Comparte tus guías, apuntes o enlaces para ayudar a tus compañeros universitarios en Huancayo.</p>
+
+  <!-- Caja de información -->
+  <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+    <i class="bi bi-shield-check me-2 fs-4"></i>
+    <div>
+      <strong>Compromiso de Autoría y Licenciamiento Abierto</strong><br>
+      <small>Recuerda subir únicamente material libre de derechos comerciales o de autoría académica propia.</small>
+    </div>
+  </div>
+
   <form [formGroup]="formularioRecurso" (ngSubmit)="guardar()">
     
-    <!-- Título -->
-    <div class="mb-3">
-      <label for="titulo" class="form-label">Título del recurso</label>
-      <input type="text" id="titulo" class="form-control" formControlName="titulo">
-      @if(formularioRecurso.get('titulo')?.invalid && formularioRecurso.get('titulo')?.touched){
-        <span class="text-danger small">El título es obligatorio (mín. 5 caracteres).</span>
-      }
+    <!-- SECCIÓN 1: IDENTIFICACIÓN -->
+    <div class="card mb-4">
+      <div class="card-header bg-white">
+        <h5 class="mb-0 text-primary">1. IDENTIFICACIÓN DEL RECURSO</h5>
+      </div>
+      <div class="card-body">
+        
+        <!-- Título -->
+        <div class="mb-3">
+          <label for="titulo" class="form-label fw-bold">Título del recurso *</label>
+          <input type="text" id="titulo" class="form-control" formControlName="titulo" placeholder="Ej: Solucionario Examen Sustitutorio - Estructura de Datos">
+          @if(formularioRecurso.get('titulo')?.invalid && formularioRecurso.get('titulo')?.touched){
+            <div class="text-danger small">El título es obligatorio (mín. 5 caracteres).</div>
+          }
+        </div>
+
+        <div class="row">
+          <!-- Universidad -->
+          <div class="col-md-6 mb-3">
+            <label for="universidad" class="form-label fw-bold">Universidad de origen *</label>
+            <select id="universidad" class="form-select" formControlName="universidad">
+              <option value="">Seleccione...</option>
+              <option value="Universidad Continental">Universidad Continental</option>
+              <option value="UNCP">Universidad Nacional del Centro del Perú (UNCP)</option>
+              <option value="UPLA">Universidad Privada Los Andes (UPLA)</option>
+            </select>
+          </div>
+
+          <!-- Asignatura -->
+          <div class="col-md-6 mb-3">
+            <label for="asignatura" class="form-label fw-bold">Asignatura / Curso *</label>
+            <input type="text" id="asignatura" class="form-control" formControlName="asignatura" placeholder="Ej: Estructuras de Datos y Algoritmos">
+          </div>
+        </div>
+
+        <!-- Categoría -->
+        <div class="mb-3">
+          <label for="categoria" class="form-label fw-bold">Categoría Académica *</label>
+          <select id="categoria" class="form-select" formControlName="categoria">
+            <option value="">Seleccione...</option>
+            <option value="Programación & Ciencias de la Computación">Programación & Ciencias de la Computación</option>
+            <option value="Matemáticas & Ciencias Exactas">Matemáticas & Ciencias Exactas</option>
+            <option value="Ciencias de la Salud">Ciencias de la Salud</option>
+            <option value="Ciencias Administrativas">Ciencias Administrativas</option>
+          </select>
+        </div>
+
+        <!-- Descripción -->
+        <div class="mb-3">
+          <label for="descripcion" class="form-label fw-bold">Descripción del contenido *</label>
+          <textarea id="descripcion" class="form-control" rows="4" formControlName="descripcion" placeholder="Contiene la resolución detallada de los 5 problemas..."></textarea>
+          @if(formularioRecurso.get('descripcion')?.invalid && formularioRecurso.get('descripcion')?.touched){
+            <div class="text-danger small">La descripción es obligatoria (mín. 10 caracteres).</div>
+          }
+        </div>
+      </div>
     </div>
 
-    <!-- Curso -->
-    <div class="mb-3">
-      <label for="curso" class="form-label">Curso / Asignatura</label>
-      <input type="text" id="curso" class="form-control" formControlName="curso">
-      @if(formularioRecurso.get('curso')?.invalid && formularioRecurso.get('curso')?.touched){
-        <span class="text-danger small">El curso es obligatorio.</span>
-      }
+    <!-- SECCIÓN 2: ACCESO Y ARCHIVO -->
+    <div class="card mb-4">
+      <div class="card-header bg-white">
+        <h5 class="mb-0 text-primary">2. ACCESO Y ARCHIVO</h5>
+      </div>
+      <div class="card-body">
+        
+        <!-- URL -->
+        <div class="mb-3">
+          <label for="url" class="form-label fw-bold">Enlace URL o repositorio de descarga directa *</label>
+          <input type="url" id="url" class="form-control" formControlName="url" placeholder="https://drive.google.com/... o https://github.com/...">
+          @if(formularioRecurso.get('url')?.invalid && formularioRecurso.get('url')?.touched){
+            <div class="text-danger small">Ingresa una URL válida (debe empezar con http:// o https://).</div>
+          }
+        </div>
+
+        <!-- Autor -->
+        <div class="mb-3">
+          <label for="autor" class="form-label fw-bold">Tu nombre (Autor) *</label>
+          <input type="text" id="autor" class="form-control" formControlName="autor" placeholder="Ej: Lucía Canchanya">
+        </div>
+      </div>
     </div>
 
-    <!-- Descripción -->
-    <div class="mb-3">
-      <label for="descripcion" class="form-label">Descripción</label>
-      <textarea id="descripcion" class="form-control" rows="3" formControlName="descripcion"></textarea>
+    <!-- Botones de acción -->
+    <div class="d-flex gap-2 mb-5">
+      <button type="submit" class="btn btn-primary px-4" [disabled]="formularioRecurso.invalid">
+        <i class="bi bi-upload"></i> Publicar recurso
+      </button>
+      <button type="button" class="btn btn-outline-secondary" (click)="limpiar()">
+        Cancelar
+      </button>
     </div>
 
-    <!-- URL -->
-    <div class="mb-3">
-      <label for="url" class="form-label">Enlace (URL)</label>
-      <input type="url" id="url" class="form-control" formControlName="url">
-      @if(formularioRecurso.get('url')?.invalid && formularioRecurso.get('url')?.touched){
-        <span class="text-danger small">Ingresa una URL válida (http:// o https://).</span>
-      }
-    </div>
-
-    <!-- Autor -->
-    <div class="mb-3">
-      <label for="autor" class="form-label">Autor</label>
-      <input type="text" id="autor" class="form-control" formControlName="autor">
-    </div>
-
-    <!-- Botón -->
-    <button type="submit" class="btn btn-primary" [disabled]="formularioRecurso.invalid">
-      Publicar Recurso
-    </button>
   </form>
 
-  <!-- Tabla -->
+  <!-- Tabla de recursos guardados (Prueba del Servicio) -->
   @if(listaRecursos.length > 0){
-    <div class="mt-5">
-      <h4 class="mb-3">📌 Recursos Publicados</h4>
-      <table class="table table-striped">
+    <div class="mt-4">
+      <h4 class="mb-3"> Recursos Publicados en esta sesión</h4>
+      <table class="table table-striped table-bordered">
         <thead class="table-dark">
           <tr>
             <th>Título</th>
-            <th>Curso</th>
-            <th>Autor</th>
+            <th>Universidad</th>
+            <th>Asignatura</th>
             <th>Enlace</th>
           </tr>
         </thead>
@@ -65,11 +132,9 @@
           @for(r of listaRecursos; track $index){
             <tr>
               <td>{{ r.titulo }}</td>
-              <td>{{ r.curso }}</td>
-              <td>{{ r.autor }}</td>
-              <td>
-                <a [href]="r.url" target="_blank" class="btn btn-sm btn-outline-primary">Ver 🔗</a>
-              </td>
+              <td>{{ r.universidad }}</td>
+              <td>{{ r.asignatura }}</td>
+              <td><a [href]="r.url" target="_blank" class="btn btn-sm btn-outline-primary">Ver 🔗</a></td>
             </tr>
           }
         </tbody>

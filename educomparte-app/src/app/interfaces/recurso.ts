@@ -1,8 +1,9 @@
-// src/app/interfaces/recurso.ts
 export interface Recurso {
   id?: number;
   titulo: string;
-  curso: string;
+  universidad: string;       // Nuevo campo
+  asignatura: string;        // Antes era 'curso'
+  categoria: string;         // Nuevo campo
   descripcion: string;
   url: string;
   autor: string;
