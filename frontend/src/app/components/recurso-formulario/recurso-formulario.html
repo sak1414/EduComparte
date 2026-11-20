@@ -1,0 +1,70 @@
+<!-- src/app/components/recurso-formulario/recurso-formulario.html -->
+<div class="container mt-4">
+  <h2 class="mb-4">{{ esEdicion ? 'Editar Recurso' : 'Publicar Nuevo Recurso' }}</h2>
+
+  <!-- El formulario se vincula con [formGroup] y el evento (ngSubmit) llama a onSubmit() -->
+  <form [formGroup]="formularioRecurso" (ngSubmit)="onSubmit()">
+    
+    <div class="mb-3">
+      <label for="titulo" class="form-label">Título del Recurso</label>
+      <input type="text" id="titulo" class="form-control" formControlName="titulo" 
+             [class.is-invalid]="formularioRecurso.get('titulo')?.invalid && formularioRecurso.get('titulo')?.touched">
+      <div class="invalid-feedback" *ngIf="formularioRecurso.get('titulo')?.hasError('required')">El título es obligatorio.</div>
+      <div class="invalid-feedback" *ngIf="formularioRecurso.get('titulo')?.hasError('minlength')">Mínimo 5 caracteres.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="universidad" class="form-label">Universidad</label>
+      <input type="text" id="universidad" class="form-control" formControlName="universidad"
+             [class.is-invalid]="formularioRecurso.get('universidad')?.invalid && formularioRecurso.get('universidad')?.touched">
+    </div>
+
+    <div class="mb-3">
+      <label for="asignatura" class="form-label">Asignatura</label>
+      <input type="text" id="asignatura" class="form-control" formControlName="asignatura"
+             [class.is-invalid]="formularioRecurso.get('asignatura')?.invalid && formularioRecurso.get('asignatura')?.touched">
+    </div>
+
+    <div class="mb-3">
+      <label for="categoria" class="form-label">Categoría</label>
+      <input type="text" id="categoria" class="form-control" formControlName="categoria"
+             [class.is-invalid]="formularioRecurso.get('categoria')?.invalid && formularioRecurso.get('categoria')?.touched">
+    </div>
+
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <textarea id="descripcion" class="form-control" rows="3" formControlName="descripcion"
+                [class.is-invalid]="formularioRecurso.get('descripcion')?.invalid && formularioRecurso.get('descripcion')?.touched"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="url" class="form-label">URL del Archivo (Google Drive, OneDrive, etc.)</label>
+      <input type="url" id="url" class="form-control" formControlName="url"
+             [class.is-invalid]="formularioRecurso.get('url')?.invalid && formularioRecurso.get('url')?.touched">
+    </div>
+
+    <div class="mb-3">
+      <label for="autor" class="form-label">Autor</label>
+      <input type="text" id="autor" class="form-control" formControlName="autor"
+             [class.is-invalid]="formularioRecurso.get('autor')?.invalid && formularioRecurso.get('autor')?.touched">
+    </div>
+
+    <div class="mb-3">
+      <label for="tipo" class="form-label">Tipo de Archivo</label>
+      <select id="tipo" class="form-select" formControlName="tipo">
+        <option value="PDF">PDF</option>
+        <option value="DOCX">Word (DOCX)</option>
+        <option value="ZIP">Comprimido (ZIP)</option>
+        <option value="PPTX">Presentación (PPTX)</option>
+      </select>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary" [disabled]="formularioRecurso.invalid">
+        {{ esEdicion ? 'Actualizar' : 'Publicar' }} Recurso
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="limpiar()">Cancelar</button>
+    </div>
+
+  </form>
+</div>
