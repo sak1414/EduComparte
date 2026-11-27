@@ -9,6 +9,9 @@ authors = [
 requires-python = ">=3.15"
 dependencies = [
     "fastapi>=0.162.0",
+    "fastapi-cors>=0.0.6",
+    "pyodbc>=5.5.0",
+    "python-dotenv>=1.2.4",
     "uvicorn>=0.54.0",
 ]
 
