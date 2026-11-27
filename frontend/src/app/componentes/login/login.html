@@ -1,0 +1,40 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Iniciar Sesión - EduComparte</h2>
+    <p class="subtitulo">Comparte recursos educativos con universitarios de Huancayo</p>
+
+    <form (ngSubmit)="iniciarSesion()">
+      <div class="form-group">
+        <label for="correo">Correo electrónico</label>
+        <input
+          type="email"
+          id="correo"
+          [value]="correo()"
+          (input)="actualizarCorreo($event)"
+          placeholder="ejemplo@uncp.edu.pe"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="contrasena">Contraseña</label>
+        <input
+          type="password"
+          id="contrasena"
+          [value]="contrasena()"
+          (input)="actualizarContrasena($event)"
+          placeholder="Ingresa tu contraseña"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="cargando()">
+        {{ cargando() ? 'Ingresando...' : 'Iniciar Sesión' }}
+      </button>
+    </form>
+
+    <p class="enlace-registro">
+      ¿No tienes cuenta? <a routerLink="/registro">Regístrate aquí</a>
+    </p>
+  </div>
+</div>

@@ -1,22 +1,39 @@
-// src/app/services/recurso.service.ts
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Recurso } from '../interfaces/recurso';
 
-// ✅ ESTA ES LA IMPORTACIÓN CORRECTA AHORA:
-import { environment } from '../../environments/environment'; 
+export interface Recurso {
+  id?: number;
+  titulo: string;
+  universidad: string;
+  asignatura: string;
+  categoria: string;
+  descripcion: string;
+  url: string;
+  autor: string;
+  tipo: string;
+}
+
+export interface RecursoCrear {
+
+  titulo: string;
+  universidad: string;
+  asignatura: string;
+  categoria: string;
+  descripcion: string;
+  url: string;
+  autor: string;
+  tipo?: string;  
+}
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecursoService {
-  private http = inject(HttpClient);
-  
-  // Ahora sí funcionará sin errores rojos
-  private apiUrl = `${environment.apiUrl}/api/recursos`;
+  private apiUrl = 'http://127.0.0.1:8000/api/recursos';
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
   obtenerRecursos(): Observable<Recurso[]> {
     return this.http.get<Recurso[]>(this.apiUrl);
@@ -26,15 +43,15 @@ export class RecursoService {
     return this.http.get<Recurso>(`${this.apiUrl}/${id}`);
   }
 
-  guardarRecurso(recurso: Recurso): Observable<Recurso> {
+  guardarRecurso(recurso: RecursoCrear): Observable<Recurso> {
     return this.http.post<Recurso>(this.apiUrl, recurso);
   }
 
-  actualizarRecurso(id: number, recurso: Recurso): Observable<Recurso> {
+  actualizarRecurso(id: number, recurso: RecursoCrear): Observable<Recurso> {
     return this.http.put<Recurso>(`${this.apiUrl}/${id}`, recurso);
   }
 
-  eliminarRecurso(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  eliminarRecurso(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

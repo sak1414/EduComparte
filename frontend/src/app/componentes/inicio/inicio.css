@@ -1,0 +1,49 @@
+.inicio-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f4f8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.inicio-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.inicio-card h2 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.saludo {
+  color: #27ae60;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.descripcion {
+  color: #7f8c8d;
+  margin-bottom: 1.5rem;
+}
+
+.btn-logout {
+  padding: 0.7rem 1.5rem;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-logout:hover {
+  background-color: #c0392b;
+}

@@ -1,4 +1,3 @@
-
 import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -17,33 +16,44 @@ export class DetalleRecursoComponent {
   // 1. MODELO Signal para el recurso seleccionado
   recursoSeleccionado = signal<Recurso | null>(null);
 
-  // 2. Inyección de dependencias
+  // 2. Inyeccion de dependencias
   private recursoService = inject(RecursoService);
-  private route = inject(ActivatedRoute); // Para leer el :id de la URL
+  private route = inject(ActivatedRoute);
 
   constructor() {
     this.cargarDetalle();
   }
 
   cargarDetalle(): void {
-    // Leemos el ID de la URL (ej: /detalle/1 → id = '1')
+    // Leemos el ID de la URL (ej: /detalle/1 -> id = 1)
     const idStr = this.route.snapshot.paramMap.get('id');
     const id = Number(idStr);
 
     // Buscamos el recurso en el servicio
-    const recursos = this.recursoService.obtenerRecursos();
-    const encontrado = recursos.find(r => r.id === id);
-
-    if (encontrado) {
-      this.recursoSeleccionado.set(encontrado);
-    } else {
-      Swal.fire({
-        title: 'Recurso no encontrado',
-        text: 'El recurso que buscas no existe.',
-        icon: 'error',
-        confirmButtonColor: '#0d6efd'
-      });
-    }
+    this.recursoService.obtenerRecursos().subscribe({
+      next: (recursos: Recurso[]) => {
+        const encontrado = recursos.find((r: Recurso) => r.id === id);
+        if (encontrado) {
+          this.recursoSeleccionado.set(encontrado);
+        } else {
+          Swal.fire({
+            title: 'Recurso no encontrado',
+            text: 'El recurso que buscas no existe.',
+            icon: 'error',
+            confirmButtonColor: '#0d6efd'
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Error al cargar recursos:', err);
+        Swal.fire({
+          title: 'Error',
+          text: 'No se pudo conectar con el servidor.',
+          icon: 'error',
+          confirmButtonColor: '#0d6efd'
+        });
+      }
+    });
   }
 
   descargar(): void {
@@ -51,7 +61,7 @@ export class DetalleRecursoComponent {
     if (recurso) {
       Swal.fire({
         title: 'Descargando...',
-        text: `Se está descargando "${recurso.titulo}"`,
+        text: `Se esta descargando "${recurso.titulo}"`,
         icon: 'success',
         timer: 2000,
         showConfirmButton: false
@@ -62,7 +72,7 @@ export class DetalleRecursoComponent {
   guardarParaDespues(): void {
     Swal.fire({
       title: 'Guardado',
-      text: 'El recurso se guardó en tu lista de favoritos',
+      text: 'El recurso se guardo en tu lista de favoritos',
       icon: 'success',
       confirmButtonColor: '#0d6efd'
     });

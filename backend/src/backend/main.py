@@ -25,6 +25,8 @@ app.add_middleware(
 
 # Incluir el router de recursos
 app.include_router(recurso_router)
+from src.backend.apis.auth_api import router as auth_router
+app.include_router(auth_router)
 
 # Ruta raíz (opcional, para verificar que funciona)
 @app.get("/")
